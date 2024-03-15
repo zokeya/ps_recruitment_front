@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom'; // Use RouterProvider from react-router-dom
 import router from './router';
 import { ContextProvider } from './context/ContextProvider';
 
