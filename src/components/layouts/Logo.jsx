@@ -1,7 +1,8 @@
+import logoImage from "../../assets/images/logo-sm-light.png"
 const Logo = () => {
   return (
   <div className="logo w-16 h-16">
-    <img src="./assets/images/logo-sm-light.png" alt=""  />
+    <img src={logoImage} alt=""  />
   </div>
   );
 };

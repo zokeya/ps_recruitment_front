@@ -1,15 +1,18 @@
+// Navbar.jsx
 import clsx from 'clsx';
 import { BellDot, Menu, X } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Logo from './layouts/Logo';
 
-export default function Navbar({}) {
+import userAvatar from "../assets/images/users/avatar-1.jpg"
+export default function Navbar({ user, onLogout }) {
   const [isSideMenuOpen, setOpenSideMenu] = useState(false);
 
   const navlinks = [
     {
       label: "Home",
-      path: "/dashboad"
+      path: "/dashboard"
     },
     {
       label: "Profile",
@@ -36,15 +39,15 @@ export default function Navbar({}) {
               className="text-3xl cursor-pointer lg:hidden"
             />
             {/* logo */}
-            <Link href={"/"} className="font-mono text-4xl">
-              logo
+            <Link to={'/'} className="font-mono text-4xl">
+              <Logo />
             </Link>
           </section>
           {navlinks.map((d, i) => (
             <Link
               key={i}
               className="hidden text-gray-400 lg:block hover:text-black"
-              href={d.path}
+              to={d.path}
             >
               {d.label}
             </Link>
@@ -74,13 +77,17 @@ export default function Navbar({}) {
 
         {/* last section */}
         <section className="flex items-center gap-4">
+          {/* user name */}
+          <span>{user.name}</span>
+          {/* logout button */}
+          <button onClick={onLogout}>Logout</button>
           {/* cart icon */}
           <BellDot className="text-3xl" />
           <img
             width={40}
             height={40}
             className="w-8 h-8 rounded-full "
-            src="../assets/images/users/avater-1.jpg"
+            src={userAvatar}
             alt="avatar-img"
           />
           {/* avtar img */}

@@ -24,10 +24,13 @@ function Login() {
         setToken(data.access_token);
       })
       .catch((err) => {
+        console.log(err.response.data)
         const response = err.response;
 
-        if (response) {
-          setErrors(response?.data);
+        if (response && response.status === 403) {
+          setErrors({ detail: [{ msg: 'Invalid login credentials' }] });
+        } else if (response && response.data && response.data.detail) {
+          setErrors(response.data);
         }
       });
   };
@@ -44,7 +47,7 @@ function Login() {
               <div>
                 {errors.detail.map((error, i) => (
                   <div key={i}>
-                    <p>{JSON.stringify(error.loc[1])} {error.msg}</p>
+                    <p>{error.msg}</p>
                   </div>
                 ))}
               </div>
@@ -55,11 +58,10 @@ function Login() {
                 Email address
               </label>
               <div className="mt-2">
-
-            <input ref={userNameRef} type="text" autoComplete="user-name"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-            </div>
+                <input ref={userNameRef} type="text" autoComplete="user-name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
             </div>
             <div>
               <div className="flex items-center justify-between">
@@ -73,23 +75,21 @@ function Login() {
                 </div>
               </div>
               <div className="mt-2">
-            <input ref={passwordRef} type="password" autoComplete="current-password"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
+                <input ref={passwordRef} type="password" autoComplete="current-password"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
              </div>
             </div>
-
             <div>
-            <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >Login</button>
-</div>
-</form>
-<p className="mt-10 text-sm text-center text-gray-500">
-Not registered?{' '}
-
+              <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Login
+              </button>
+            </div>
+          </form>
+          <p className="mt-10 text-sm text-center text-gray-500">
+            Not registered?{' '}
             <Link className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500" to="/signup">Create an account</Link>
           </p>
-
         </div>
     </div>
 
