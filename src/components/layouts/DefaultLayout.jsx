@@ -22,13 +22,13 @@ function DefaultLayout() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <header>
         <Navbar user={user} onLogout={logout} />
       </header>
-      <section className="main px-8 py-6">
+      <main className="flex-1 p-4">
         <Outlet />
-      </section>
+      </main>
     </div>
   );
 }
